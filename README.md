@@ -86,16 +86,6 @@ WA|DATA|GOV
 
 ---
 
-## Dashboard
-
-<!-- TODO: Add 2–3 screenshots to an /images folder and update the paths below -->
-
-| Overview | Metro vs Country | Sector & Year Level |
-|---|---|---|
-| ![](images/dashboard-overview.png) | ![](images/metro-country.png) | ![](images/sector-stage.png) |
-
----
-
 ## Repository structure
 
 ```

@@ -59,7 +59,7 @@ Years 11–12 grew **18.9%** and Years 7–10 grew **11.5%**, while kindergarten
 | Item | Detail |
 WA|DATA|GOV
 | File | `wa_census_2020_2026.csv` (14 rows: 7 years × 2 sectors) |
-| Source | <!-- TODO: confirm and link, e.g. WA Department of Education, Student Census (Semester 1) --> **[Add source name and link]** |
+| Source | <!-- TODO: confirm and link, e.g. WA Department of Education, Student Census (Semester 1) --> **[DATAWA.GOV]** |
 | Fields | year, sector, schools, enrolments by stage (kindergarten, pre-primary, Years 1–6, 7–10, 11–12), total, metro and country schools/students |
 
 **Data quality checks performed:**
@@ -73,9 +73,6 @@ WA|DATA|GOV
 
 <!-- TODO: Edit this section so it describes exactly what YOU did in Power BI. Delete anything you didn't do. -->
 
-1. **Power Query:** imported the CSV, set data types, and unpivoted the year-level columns into a `Stage` / `Students` format for stage-level visuals.
-2. **Data model:** [describe your tables, e.g. a Year dimension and Sector dimension related to the fact table].
-3. **DAX measures:** [list yours], for example:
    ```DAX
    Total Students = SUM(wa_census[total])
    Students per School = DIVIDE([Total Students], SUM(wa_census[schools]))

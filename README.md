@@ -57,7 +57,7 @@ Years 11–12 grew **18.9%** and Years 7–10 grew **11.5%**, while kindergarten
 ## Data
 
 | Item | Detail |
-|---|---|
+WA|DATA|GOV
 | File | `wa_census_2020_2026.csv` (14 rows: 7 years × 2 sectors) |
 | Source | <!-- TODO: confirm and link, e.g. WA Department of Education, Student Census (Semester 1) --> **[Add source name and link]** |
 | Fields | year, sector, schools, enrolments by stage (kindergarten, pre-primary, Years 1–6, 7–10, 11–12), total, metro and country schools/students |

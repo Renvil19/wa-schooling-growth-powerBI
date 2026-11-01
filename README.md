@@ -87,7 +87,7 @@ WA|DATA|GOV
 wa-schooling-growth-powerBI/
 ├── README.md
 ├── wa_census_2020_2026.csv      # source data
-├── WA_School_Growth.pbix        # Power BI report  <!-- TODO: upload -->
+├── WA_School_Growth
 ```
 
 To explore the report, download the `.pbix` file and open it in Power BI Desktop (free).

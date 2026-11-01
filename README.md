@@ -55,8 +55,9 @@ Years 11–12 grew **18.9%** and Years 7–10 grew **11.5%**, while kindergarten
 ## Data
 
 | Item | Detail |
-WA|DATA|GOV
+|---|---|
 | File | `wa_census_2020_2026.csv` (14 rows: 7 years × 2 sectors) |
+| Source | WA Department of Education, [Summary Statistics of Schools and Full-Time Students](https://www.education.wa.edu.au/school-data-and-performance), Semester 1 census, 2020–2026 |
 | Fields | year, sector, schools, enrolments by stage (kindergarten, pre-primary, Years 1–6, 7–10, 11–12), total, metro and country schools/students |
 
 **Data quality checks performed:**
@@ -67,16 +68,34 @@ WA|DATA|GOV
 ---
 
 ## Approach
+
+1. **Validation:** checked that stage, metro/country and school totals reconcile for every row (see Data quality checks).
+2. **Power Query:** unpivoted the stage columns (Kindergarten to Years 11–12) and the metro/country columns into long tables, so each can be charted and filtered on one axis.
+3. **Data model:** star schema with shared `DimYear` and `DimSector` tables filtering every fact table, so one slicer controls the whole report.
+4. **DAX measures** (examples):
+
    ```DAX
-   Total Students = SUM(wa_census[total])
-   Students per School = DIVIDE([Total Students], SUM(wa_census[schools]))
-   Growth vs 2020 % =
-       VAR Base = CALCULATE([Total Students], wa_census[year] = 2020)
-       RETURN DIVIDE([Total Students] - Base, Base)
-   Non-Gov Share % =
-       DIVIDE(CALCULATE([Total Students], wa_census[sector] = "Non-government"), [Total Students])
+   Total Students = SUM ( Census[Total] )
+
+   Students per School = DIVIDE ( [Total Students], SUM ( Census[Schools] ) )
+
+   Students Latest Year =
+       VAR y = [Latest Year]
+       RETURN CALCULATE ( [Total Students], DimYear[Year] = y )
+
+   Student Growth % = DIVIDE ( [Student Growth], [Students First Year] )
+
+   Non-govt Share =
+       DIVIDE (
+           CALCULATE ( [Total Students], DimSector[Sector] = "Non-government" ),
+           CALCULATE ( [Total Students], ALL ( DimSector ) )
+       )
    ```
-4. **Visuals:** [list yours, e.g. KPI cards, line chart of enrolments vs schools, metro vs country comparison, stacked bar by stage, sector share trend].
+
+   First and latest year are worked out from the data rather than hard-coded, so adding the 2027 census needs no measure changes.
+5. **Visuals:** KPI cards (students, growth %, schools added, non-government share), students by sector over time, growth by stage, metro vs country index (2020 = 100), and a year-by-year table.
+
+![Overview page](images/overview.png)
 
 ---
 
@@ -85,8 +104,9 @@ WA|DATA|GOV
 ```
 wa-schooling-growth-powerBI/
 ├── README.md
-├── wa_census_2020_2026.csv      # source data
-├── WA_School_Growth
+├── wa_census_2020_2026.csv              # source data
+├── WA_School_Growth.pbix                # Power BI report
+└── images/                              # screenshots used in this README
 ```
 
 To explore the report, download the `.pbix` file and open it in Power BI Desktop (free).
@@ -106,5 +126,5 @@ To explore the report, download the `.pbix` file and open it in Power BI Desktop
 
 ---
 
-**Author:** Renvil Furtado | Business Analyst, Perth WA
+**Author:** Renvil Furtado | Master of Business Analytics (UWA), Perth WA
 [LinkedIn](https://www.linkedin.com/in/renvilfurtado-6b419b238)

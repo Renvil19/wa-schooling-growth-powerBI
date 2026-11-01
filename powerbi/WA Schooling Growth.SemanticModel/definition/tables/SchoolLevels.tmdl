@@ -1,0 +1,55 @@
+table SchoolLevels
+	lineageTag: 6bdd0cf0-4a93-4d43-bc87-1f907fabd692
+
+	column Code
+		dataType: string
+		isHidden
+		lineageTag: aa19afb0-8820-4091-8931-ee103c2d4418
+		summarizeBy: none
+		sourceColumn: Code
+
+		annotation SummarizationSetBy = User
+
+	column Level
+		dataType: string
+		lineageTag: 9a688047-9e24-42ed-9109-6aece8542aaf
+		summarizeBy: none
+		sourceColumn: Level
+		sortByColumn: LevelOrder
+
+		annotation SummarizationSetBy = User
+
+	column LevelOrder
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: afaadf67-0a58-438e-913b-395a640f0df8
+		summarizeBy: none
+		sourceColumn: LevelOrder
+
+		annotation SummarizationSetBy = User
+
+	column Students
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3cc76d44-e66a-448c-9551-a50a500aad41
+		summarizeBy: sum
+		sourceColumn: Students
+
+		annotation SummarizationSetBy = User
+
+	partition SchoolLevels = m
+		mode: import
+		source =
+				let
+				    Source = SchoolsRaw,
+				    Kept = Table.SelectColumns(Source, {"Code", "K", "PP", "Y1", "Y2", "Y3", "Y4", "Y5", "Y6", "Y7", "Y8", "Y9", "Y10", "Y11", "Y12"}),
+				    Unpivoted = Table.UnpivotOtherColumns(Kept, {"Code"}, "Level", "Students"),
+				    NonZero = Table.SelectRows(Unpivoted, each [Students] > 0),
+				    WithOrder = Table.AddColumn(NonZero, "LevelOrder", each List.PositionOf({"K", "PP", "Y1", "Y2", "Y3", "Y4", "Y5", "Y6", "Y7", "Y8", "Y9", "Y10", "Y11", "Y12"}, [Level]), Int64.Type),
+				    Typed = Table.TransformColumnTypes(WithOrder, {{"Students", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

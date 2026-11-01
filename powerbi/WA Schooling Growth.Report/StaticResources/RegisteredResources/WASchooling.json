@@ -1,0 +1,42 @@
+{
+  "name": "WA Schooling",
+  "dataColors": [
+    "#E09A2B",
+    "#2563C9",
+    "#1E9E8F",
+    "#7A5BD0",
+    "#C84B4B",
+    "#6C7A89",
+    "#3FA34D",
+    "#B07A2C"
+  ],
+  "foreground": "#1B2433",
+  "foregroundNeutralSecondary": "#5B6577",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F4F6FA",
+  "tableAccent": "#2563C9",
+  "good": "#1F8A4C",
+  "bad": "#C0392B",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 13,
+      "color": "#1B2433"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#1B2433"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#5B6577"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 28,
+      "color": "#1B2433"
+    }
+  }
+}

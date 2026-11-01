@@ -1,0 +1,170 @@
+table _Measures
+	lineageTag: 92b8423c-68a9-460e-9b81-babc463d3360
+
+	/// Students at the census, summed over whatever years and sectors are in context.
+	measure 'Total Students' = ```
+			SUM ( Census[Total] )
+			```
+		formatString: #,0
+		lineageTag: 2b343a15-15f1-4f80-a1b9-29d8c1cccdb9
+
+	measure 'Total Schools' = ```
+			SUM ( Census[Schools] )
+			```
+		formatString: #,0
+		lineageTag: be4f73e9-4929-4995-a68a-790adcac6bdc
+
+	/// Average students per school; an indicator, not a capacity measure.
+	measure 'Students per School' = ```
+			DIVIDE ( [Total Students], [Total Schools] )
+			```
+		formatString: #,0
+		lineageTag: ec1d006d-d725-4455-bda4-0040dc4e5a47
+
+	measure 'First Year' = ```
+			CALCULATE ( MIN ( DimYear[Year] ), ALL ( DimYear ) )
+			```
+		formatString: 0
+		lineageTag: 7b0d1039-e741-42bd-aa50-e11acbf932a8
+
+	measure 'Latest Year' = ```
+			CALCULATE ( MAX ( DimYear[Year] ), ALL ( DimYear ) )
+			```
+		formatString: 0
+		lineageTag: b4521540-7a27-40c6-8917-f7a9b3991db1
+
+	measure 'Students First Year' = ```
+			VAR y = [First Year]
+			RETURN CALCULATE ( [Total Students], DimYear[Year] = y )
+			```
+		formatString: #,0
+		lineageTag: 41aafd97-e255-4c1e-a8a1-4554b109a72f
+
+	measure 'Students Latest Year' = ```
+			VAR y = [Latest Year]
+			RETURN CALCULATE ( [Total Students], DimYear[Year] = y )
+			```
+		formatString: #,0
+		lineageTag: 17563513-b896-482e-ab2c-a23596b92def
+
+	measure 'Student Growth' = ```
+			[Students Latest Year] - [Students First Year]
+			```
+		formatString: +#,0;-#,0;0
+		lineageTag: e7c27874-a69b-4dd7-8cda-b2719580f484
+
+	measure 'Student Growth %' = ```
+			DIVIDE ( [Student Growth], [Students First Year] )
+			```
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: ac828d24-d818-405e-9f64-9bedcb5ad550
+
+	measure 'Schools Latest Year' = ```
+			VAR y = [Latest Year]
+			RETURN CALCULATE ( [Total Schools], DimYear[Year] = y )
+			```
+		formatString: #,0
+		lineageTag: 99121181-5a5e-4915-ba94-776e2eb5cecd
+
+	measure 'Schools Added' = ```
+			VAR f = [First Year]
+			VAR l = [Latest Year]
+			RETURN
+			    CALCULATE ( [Total Schools], DimYear[Year] = l )
+			        - CALCULATE ( [Total Schools], DimYear[Year] = f )
+			```
+		formatString: +#,0;-#,0;0
+		lineageTag: f5328b83-ee68-418f-bbde-dfda5aafb9a1
+
+	measure 'Non-govt Share' = ```
+			DIVIDE (
+			    CALCULATE ( [Total Students], DimSector[Sector] = "Non-government" ),
+			    CALCULATE ( [Total Students], ALL ( DimSector ) )
+			)
+			```
+		formatString: 0.0%
+		lineageTag: 39fbfb7f-22bc-4821-9e39-9c27bce17fee
+
+	measure 'Non-govt Share Latest Year' = ```
+			VAR y = [Latest Year]
+			RETURN CALCULATE ( [Non-govt Share], DimYear[Year] = y )
+			```
+		formatString: 0.0%
+		lineageTag: 3cc90eb4-2bad-4a19-b8fe-51df4126cead
+
+	measure 'YoY Change' = ```
+			VAR y = MAX ( DimYear[Year] )
+			VAR prev = CALCULATE ( [Total Students], DimYear[Year] = y - 1 )
+			RETURN
+			    IF ( HASONEVALUE ( DimYear[Year] ) && NOT ISBLANK ( prev ), [Total Students] - prev )
+			```
+		formatString: +#,0;-#,0;0
+		lineageTag: 8f02bf28-c219-4a84-bb40-79d9c34a0579
+
+	measure 'Stage Students' = ```
+			SUM ( CensusStage[Students] )
+			```
+		formatString: #,0
+		lineageTag: e118b522-dbd0-4c1f-946d-3101db10b47a
+
+	measure 'Stage Growth %' = ```
+			VAR f = [First Year]
+			VAR l = [Latest Year]
+			VAR a = CALCULATE ( [Stage Students], DimYear[Year] = f )
+			VAR b = CALCULATE ( [Stage Students], DimYear[Year] = l )
+			RETURN DIVIDE ( b - a, a )
+			```
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 9b3e7a9b-f7b3-4113-af24-596a30f267a9
+
+	measure 'Area Students' = ```
+			SUM ( CensusArea[Students] )
+			```
+		formatString: #,0
+		lineageTag: 24e230a8-77ce-462e-8e26-9e5ed753329f
+
+	/// Students indexed to the first census year = 100.
+	measure 'Area Index' = ```
+			VAR f = [First Year]
+			VAR base = CALCULATE ( [Area Students], DimYear[Year] = f )
+			RETURN DIVIDE ( [Area Students], base ) * 100
+			```
+		formatString: 0.0
+		lineageTag: 7cddef09-f7cb-438f-b670-f9a37e75a669
+
+	measure 'School Count' = ```
+			COUNTROWS ( Schools )
+			```
+		formatString: #,0
+		lineageTag: 4dd04350-e887-42a0-b421-e51364871d06
+
+	measure 'Students 2026' = ```
+			SUM ( Schools[Students] )
+			```
+		formatString: #,0
+		lineageTag: e6db4973-9462-4a11-a2b1-70281a90879f
+
+	measure 'Level Students' = ```
+			SUM ( SchoolLevels[Students] )
+			```
+		formatString: #,0
+		lineageTag: 497d342a-8baf-4547-9126-ffaa8758712f
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: 0f2576bf-ef04-4d02-9466-566bbb55ef6b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = ```
+				{0}
+				```
+
+	annotation PBI_Id = 5b68fc90ff0a4913a7099d7c69a61c5f
+

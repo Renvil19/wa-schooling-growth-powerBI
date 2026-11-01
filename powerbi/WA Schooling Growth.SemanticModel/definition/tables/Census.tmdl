@@ -1,0 +1,131 @@
+table Census
+	lineageTag: 0a16f655-62fb-49e1-843d-06d7d818d76c
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 64dd7e80-f9b7-4081-bc2e-26bb7c6189aa
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column Sector
+		dataType: string
+		isHidden
+		lineageTag: 117a7e5f-4d94-4bc2-b005-dddf3244e09f
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = User
+
+	column Schools
+		dataType: int64
+		formatString: #,0
+		lineageTag: ba77482b-9eb5-4d20-b234-cc12aa7871f4
+		summarizeBy: sum
+		sourceColumn: Schools
+
+		annotation SummarizationSetBy = User
+
+	column Kindergarten
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1525532f-ebca-4185-913a-57dd0ff16062
+		summarizeBy: sum
+		sourceColumn: Kindergarten
+
+		annotation SummarizationSetBy = User
+
+	column 'Pre-primary'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7dcff1d7-6220-4103-9429-d33d4b2e8af2
+		summarizeBy: sum
+		sourceColumn: Pre-primary
+
+		annotation SummarizationSetBy = User
+
+	column 'Years 1-6'
+		dataType: int64
+		formatString: #,0
+		lineageTag: a810db85-89ce-44a3-8899-c403187063b9
+		summarizeBy: sum
+		sourceColumn: Years 1-6
+
+		annotation SummarizationSetBy = User
+
+	column 'Years 7-10'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 68dce4fc-b197-44c2-aeff-0987458a4bd4
+		summarizeBy: sum
+		sourceColumn: Years 7-10
+
+		annotation SummarizationSetBy = User
+
+	column 'Years 11-12'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7a0e0ebf-c87a-4045-8767-75e6af45f8f8
+		summarizeBy: sum
+		sourceColumn: Years 11-12
+
+		annotation SummarizationSetBy = User
+
+	column Total
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4fabcad2-f8d5-4f1e-a624-0f74bed64b08
+		summarizeBy: sum
+		sourceColumn: Total
+
+		annotation SummarizationSetBy = User
+
+	column 'Metro Schools'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 676f26db-155d-4c97-bf64-8a5c98278a83
+		summarizeBy: sum
+		sourceColumn: Metro Schools
+
+		annotation SummarizationSetBy = User
+
+	column 'Metro Students'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4463944d-a6c1-425a-89be-78c29b44e29e
+		summarizeBy: sum
+		sourceColumn: Metro Students
+
+		annotation SummarizationSetBy = User
+
+	column 'Country Schools'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 2a3d8eaf-48f2-4361-aeec-a5cba2da2c3f
+		summarizeBy: sum
+		sourceColumn: Country Schools
+
+		annotation SummarizationSetBy = User
+
+	column 'Country Students'
+		dataType: int64
+		formatString: #,0
+		lineageTag: f2b32bd8-0cf1-45d0-a48a-052b87c94e6a
+		summarizeBy: sum
+		sourceColumn: Country Students
+
+		annotation SummarizationSetBy = User
+
+	partition Census = m
+		mode: import
+		source =
+				let
+				    Source = CensusRaw
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

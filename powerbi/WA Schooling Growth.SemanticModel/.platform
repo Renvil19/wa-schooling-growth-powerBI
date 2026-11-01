@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "WA Schooling Growth"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a3b65dec-44cb-498f-a4f6-e05819f1493d"
+  }
+}

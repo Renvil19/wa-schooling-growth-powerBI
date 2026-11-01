@@ -1,0 +1,23 @@
+table DimYear
+	lineageTag: 800ffd43-4ea2-4e2d-a875-90db16f448be
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 9963849f-d456-47ae-874c-656546f4cea5
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	partition DimYear = m
+		mode: import
+		source =
+				let
+				    Source = CensusRaw,
+				    Years = Table.Distinct(Table.SelectColumns(Source, {"Year"}))
+				in
+				    Years
+
+	annotation PBI_ResultType = Table
+

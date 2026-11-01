@@ -1,0 +1,22 @@
+table DimSector
+	lineageTag: 60ee1115-550a-41b5-9831-b91c639a5b58
+
+	column Sector
+		dataType: string
+		lineageTag: f23b7ba4-6004-4ae6-8e44-b78614bcba15
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = User
+
+	partition DimSector = m
+		mode: import
+		source =
+				let
+				    Source = CensusRaw,
+				    Sectors = Table.Distinct(Table.SelectColumns(Source, {"Sector"}))
+				in
+				    Sectors
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,72 @@
+table Schools
+	lineageTag: 56403c0f-07fe-40cd-a4ca-31ed9f6eaded
+
+	column Code
+		dataType: string
+		lineageTag: 3102bb87-def6-4ecc-949e-44f97dd30828
+		summarizeBy: none
+		sourceColumn: Code
+
+		annotation SummarizationSetBy = User
+
+	column School
+		dataType: string
+		lineageTag: d6823d4b-8f43-4d80-ba94-2fcdba59fc9c
+		summarizeBy: none
+		sourceColumn: School
+
+		annotation SummarizationSetBy = User
+
+	column Suburb
+		dataType: string
+		lineageTag: 025044f3-e58e-4eca-b45e-8dff836f6d82
+		summarizeBy: none
+		sourceColumn: Suburb
+
+		annotation SummarizationSetBy = User
+
+	column Region
+		dataType: string
+		lineageTag: dab23ce4-9d56-466e-bf1b-e4011f1d33b6
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = User
+
+	column Sector
+		dataType: string
+		isHidden
+		lineageTag: 6ab3454a-6c9e-4f14-a985-2d8205eb30e7
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = User
+
+	column Type
+		dataType: string
+		lineageTag: a4ab1a6c-f4af-4fb9-8206-03ea5db53a1a
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = User
+
+	column Students
+		dataType: int64
+		formatString: #,0
+		lineageTag: 26796f54-03a2-4e4f-9bc6-4a60ceb8863a
+		summarizeBy: sum
+		sourceColumn: Students
+
+		annotation SummarizationSetBy = User
+
+	partition Schools = m
+		mode: import
+		source =
+				let
+				    Source = SchoolsRaw,
+				    Kept = Table.SelectColumns(Source, {"Code", "School", "Suburb", "Region", "Sector", "Type", "Students"})
+				in
+				    Kept
+
+	annotation PBI_ResultType = Table
+

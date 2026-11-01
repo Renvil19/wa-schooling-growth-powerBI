@@ -1,0 +1,22 @@
+model Model
+	culture: en-AU
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-AU
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["CensusRaw", "SchoolsRaw", "Census", "CensusStage", "CensusArea", "DimYear", "DimSector", "Schools", "SchoolLevels"]
+
+ref table Census
+ref table CensusStage
+ref table CensusArea
+ref table DimYear
+ref table DimSector
+ref table Schools
+ref table SchoolLevels
+ref table _Measures
+

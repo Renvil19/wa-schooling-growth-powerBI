@@ -1,0 +1,53 @@
+table CensusArea
+	lineageTag: 8f243296-3112-46aa-b869-4d71255fe7d7
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bc0d90bf-03a4-4592-acdc-a5b45e58da41
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column Sector
+		dataType: string
+		isHidden
+		lineageTag: 0ad00cee-7a40-4a2f-810a-279a213e565e
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = User
+
+	column Area
+		dataType: string
+		lineageTag: 543cf7c9-a96b-4d24-ad7a-d2070986f4f9
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = User
+
+	column Students
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7857fb0e-33d1-4c27-8f8c-cf0706d3babb
+		summarizeBy: sum
+		sourceColumn: Students
+
+		annotation SummarizationSetBy = User
+
+	partition CensusArea = m
+		mode: import
+		source =
+				let
+				    Source = CensusRaw,
+				    Kept = Table.SelectColumns(Source, {"Year", "Sector", "Metro Students", "Country Students"}),
+				    Unpivoted = Table.UnpivotOtherColumns(Kept, {"Year", "Sector"}, "Area", "Students"),
+				    Named = Table.ReplaceValue(Table.ReplaceValue(Unpivoted, "Metro Students", "Metropolitan", Replacer.ReplaceValue, {"Area"}), "Country Students", "Country", Replacer.ReplaceValue, {"Area"}),
+				    Typed = Table.TransformColumnTypes(Named, {{"Students", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,32 @@
+relationship de9ab4bd-b6ef-4b1a-b4fd-19087a11a8d6
+	fromColumn: Census.Year
+	toColumn: DimYear.Year
+
+relationship c05ee543-781e-4a53-87ca-dfbd99234afb
+	fromColumn: CensusStage.Year
+	toColumn: DimYear.Year
+
+relationship 4fa6f254-86bb-4d8b-83f9-d5be490a8ba3
+	fromColumn: CensusArea.Year
+	toColumn: DimYear.Year
+
+relationship 2c21e0a5-ceba-4048-8160-fbbd354e303f
+	fromColumn: Census.Sector
+	toColumn: DimSector.Sector
+
+relationship d03a5b74-3379-4eb1-a922-ff2dd831d273
+	fromColumn: CensusStage.Sector
+	toColumn: DimSector.Sector
+
+relationship 466600bc-8292-4e1f-bbf6-5eb9f0c44ae4
+	fromColumn: CensusArea.Sector
+	toColumn: DimSector.Sector
+
+relationship fa885f4c-18f7-4795-a074-1c66f169f9a0
+	fromColumn: Schools.Sector
+	toColumn: DimSector.Sector
+
+relationship 06911072-0c74-499c-a6fa-1c1ab2e08074
+	fromColumn: SchoolLevels.Code
+	toColumn: Schools.Code
+

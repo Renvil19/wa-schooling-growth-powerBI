@@ -93,9 +93,12 @@ Years 11–12 grew **18.9%** and Years 7–10 grew **11.5%**, while kindergarten
    ```
 
    First and latest year are worked out from the data rather than hard-coded, so adding the 2027 census needs no measure changes.
-5. **Visuals:** KPI cards (students, growth %, schools added, non-government share), students by sector over time, growth by stage, metro vs country index (2020 = 100), and a year-by-year table.
+5. **Visuals:** three report pages.
+   - **Overview:** KPI cards (students, growth %, schools added, non-government share) and students by sector over time.
+   - **Growth drivers:** growth by stage, metro vs country index (2020 = 100), and a year-by-year table.
+   - **2026 snapshot:** students by education region and year level, and a list of all 1,150 schools.
 
-![Overview page](images/overview.png)
+![WA schooling growth summary](images/wa-schooling-cover.png)
 
 ---
 
@@ -104,24 +107,28 @@ Years 11–12 grew **18.9%** and Years 7–10 grew **11.5%**, while kindergarten
 ```
 wa-schooling-growth-powerBI/
 ├── README.md
-├── wa_census_2020_2026.csv              # source data
-├── WA_School_Growth.pbix                # Power BI report
-└── images/                              # screenshots used in this README
+├── wa_census_2020_2026.csv              # census summaries 2020–2026
+├── wa_schools_2026.csv                  # all 1,150 schools, 2026 census
+├── powerbi/                             # Power BI project (.pbip)
+│   ├── WA Schooling Growth.pbip         # open this in Power BI Desktop
+│   ├── WA Schooling Growth.SemanticModel/   # data model, Power Query and DAX (readable text files)
+│   └── WA Schooling Growth.Report/          # report pages and visuals
+└── images/
 ```
 
-To explore the report, download the `.pbix` file and open it in Power BI Desktop (free).
+To explore the report, download the repository (**Code → Download ZIP**), unzip it, and open `powerbi/WA Schooling Growth.pbip` in Power BI Desktop (free). Click **Refresh** to load the data, which is built into the project. The DAX measures can also be read directly on GitHub in `powerbi/WA Schooling Growth.SemanticModel/definition/tables/_Measures.tmdl`.
 
 ---
 
 ## Limitations
 
-- Sector-level totals only: no school-level, regional or suburb detail, so pressure on individual schools can't be identified.
+- The 2020–2026 trend is sector-level only. School and regional detail is available for 2026 alone, so growth at individual schools can't be tracked over time.
 - School counts don't capture school size or capacity, so "students per school" is an indicator, not a capacity measure.
 - Seven data points per sector are enough to show trends, not to forecast.
 
 ## Next steps
 
-- Add school-level or regional data to identify specific growth corridors.
+- Add school-level data for earlier years to track regional growth corridors over time.
 - Bring in population projections to forecast demand by stage.
 
 ---

@@ -68,9 +68,6 @@ WA|DATA|GOV
 ---
 
 ## Approach
-
-<!-- TODO: Edit this section so it describes exactly what YOU did in Power BI. Delete anything you didn't do. -->
-
    ```DAX
    Total Students = SUM(wa_census[total])
    Students per School = DIVIDE([Total Students], SUM(wa_census[schools]))

@@ -2,8 +2,6 @@
 
 A business analysis of how Western Australian school enrolments have changed from 2020 to 2026: **where students are growing, which sectors they are moving to, and whether school capacity is keeping up.**
 
-<!-- TODO: Replace with your own dashboard screenshot -->
-![Dashboard overview](images/dashboard-overview.png)
 
 ---
 
@@ -93,7 +91,6 @@ wa-schooling-growth-powerBI/
 ├── README.md
 ├── wa_census_2020_2026.csv      # source data
 ├── WA_School_Growth.pbix        # Power BI report  <!-- TODO: upload -->
-└── images/                      # dashboard screenshots  <!-- TODO: upload -->
 ```
 
 To explore the report, download the `.pbix` file and open it in Power BI Desktop (free).

@@ -2,6 +2,8 @@
 
 A business analysis of how Western Australian school enrolments have changed from 2020 to 2026: **where students are growing, which sectors they are moving to, and whether school capacity is keeping up.**
 
+**Project date:** October 2026 · **Tools:** Power BI, Power Query, DAX
+
 
 ---
 
